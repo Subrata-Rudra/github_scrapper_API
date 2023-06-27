@@ -23,6 +23,8 @@ def request_data():
     final_url = base_url + username
     html_text = requests.get(final_url).text
     soup = BeautifulSoup(html_text, 'lxml')
+    gitUsername = soup.find('span', class_ = "p-nickname vcard-username d-block").text
+    guser = gitUsername[3:]
     name = soup.find(
         'span', class_="p-name vcard-fullname d-block overflow-hidden").text
     name0 = name[3:]
@@ -34,7 +36,7 @@ def request_data():
     publicRepositories = soup.find('span', class_="Counter").text
     lastYearContribution = soup.find('h2', class_="f4 text-normal mb-2").text
     lastYearContribution0 = lastYearContribution[3:]
-    data_set = {'GitHubUsername': username, 'Name': name0, 'GitHubBio': bio, 'Followers': int(followers), 'Following': int(
+    data_set = {'GitHubUsername': guser, 'Name': name0, 'GitHubBio': bio, 'Followers': int(followers), 'Following': int(
         following), 'PublicRepositories': int(publicRepositories), 'LastYearContribution': lastYearContribution0}
     json_dump = json.dumps(data_set)
     return json_dump
