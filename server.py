@@ -70,6 +70,8 @@ def repo_data():
             rep1 = rep0[10:]
             required_length = len(rep1) - 8
             rep2 = rep1[:required_length]
+            if ind == 0:
+                rep2 = rep2.replace("\nPublic t", "")
             repos_list.insert(ind, rep2)
             repoCnt = repoCnt + 1
             ind = ind + 1
